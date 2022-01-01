@@ -1,0 +1,117 @@
+<div class="container-fluid">
+  <input
+    matInput
+    (keyup)="applyFilter($event)"
+    placeholder="Filter name"
+    #input
+  />
+  <table mat-table [dataSource]="activities" class="mat-elevation-z8" matSort>
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Activity Column -->
+    <ng-container matColumnDef="activity">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Activity</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.activity }}
+      </td>
+    </ng-container>
+
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.date | date: "short" }}
+      </td>
+    </ng-container>
+
+    <!-- WhoChangedIt Column -->
+    <ng-container matColumnDef="whoChangedIt">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Who Changed It</th>
+      <td mat-cell *matCellDef="let element">{{ element.whoChangedIt }}</td>
+    </ng-container>
+
+    <!-- WhatWasChanged Column -->
+    <ng-container matColumnDef="whatWasChanged">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        What Was Changed
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.whatWasChanged | whatWasChangedPipe }}
+      </td>
+    </ng-container>
+
+    <!-- Pronoun Column -->
+    <ng-container matColumnDef="pronoun">
+      <th mat-header-cell *matHeaderCellDef>Pronoun</th>
+      <td mat-cell *matCellDef="let element">{{ element.pronoun }}</td>
+    </ng-container>
+
+    <!-- KeyUpdated Column -->
+    <ng-container matColumnDef="keyUpdated">
+      <th mat-header-cell *matHeaderCellDef>Key Updated</th>
+      <td mat-cell *matCellDef="let element">
+        {{
+          element.whatWasChanged === "deletedAccount" ||
+          element.whatWasChanged === "newAccount"
+            ? "-"
+            : (element.keyUpdated | keyUpdatedPipe)
+        }}
+      </td>
+    </ng-container>
+
+    <!-- OldData Column -->
+    <ng-container matColumnDef="oldData">
+      <th mat-header-cell *matHeaderCellDef>Old Data</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.keyUpdated !== "imagePath" ? element.oldData : "" }}
+        {{
+          element.whatWasChanged === "deletedAccount" ||
+          (element.whatWasChanged === "newAccount" &&
+            element.keyUpdated !== "imagePath")
+            ? "-"
+            : ""
+        }}
+        <img
+          *ngIf="element.keyUpdated === 'imagePath'"
+          [src]="element.oldData"
+          class="img-thumbnail"
+          style="max-height: 50px"
+          alt="User Photo"
+        />
+      </td>
+    </ng-container>
+
+    <!-- NewData Column -->
+    <ng-container matColumnDef="newData">
+      <th mat-header-cell *matHeaderCellDef>New Data</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.keyUpdated !== "imagePath" ? element.newData : "" }}
+
+        {{
+          element.whatWasChanged === "deletedAccount" ||
+          (element.whatWasChanged === "newAccount" &&
+            element.keyUpdated !== "imagePath")
+            ? "-"
+            : ""
+        }}
+        <img
+          *ngIf="element.keyUpdated === 'imagePath'"
+          [src]="element.newData"
+          class="img-thumbnail"
+          style="max-height: 50px"
+          alt="User Photo"
+        />
+      </td>
+    </ng-container>
+
+    <!-- LAST STEP -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+  ></mat-paginator>
+</div>

@@ -1,0 +1,81 @@
+<div class="container-lg-fluid mt-3">
+  <div class="row g-0">
+    <div class="col-lg-4 px-3">
+      <div class="lead mb-1">Userlist</div>
+      <div class="row">
+        <div
+          class="col-lg-12 userlist"
+          style="max-height: 470px; overflow: scroll"
+        >
+          <div
+            *ngFor="let user of users; index as i"
+            class="card"
+            routerLinkActive="active"
+            [routerLink]="['/users', user.userName]"
+            style="cursor: pointer"
+            (click)="selectUser(user)"
+            [ngClass]="{
+              'bg-danger text-white': user === selectedUser,
+              'border border-dark border-2': user === currentLoggedInUser
+            }"
+            [id]="user.emailAddress"
+          >
+            <div class="row g-0">
+              <div class="col-7 col-sm-8">
+                <div class="card-body roundedcorner">
+                  <div class="row">
+                    <h6 class="card-title d-flex my-auto">
+                      {{ user.name
+                      }}<small
+                        *ngIf="user === currentLoggedInUser"
+                        class="loggedInAs my-auto"
+                        >logged-in</small
+                      >
+                    </h6>
+                  </div>
+
+                  <p class="card-text">
+                    <small
+                      [ngClass]="{
+                        ' text-white': user === selectedUser
+                      }"
+                      class="text-secondary"
+                      >{{ user.status }}</small
+                    >
+                  </p>
+                </div>
+              </div>
+              <div class="col-5 col-sm-4 my-auto">
+                <img
+                  [id]="1 + i"
+                  style="height: 60px"
+                  [src]="user.imagePath"
+                  class="
+                    img-fluid img-thumbnail
+                    mx-auto
+                    d-flex
+                    align-bottom
+                    visually-hidden
+                  "
+                  (load)="imageLoaded(user.userName, 1 + i)"
+                  alt="card-horizontal-image"
+                />
+                <div
+                  [id]="user.userName"
+                  class="img-fluid mx-auto d-flex align-bottom spinner-border"
+                  role="status"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!selectedUser" class="col-lg-8 px-4 mt-3 mx-auto lead">
+      Please create a profile or click on the users to view them.
+    </div>
+    <div *ngIf="true" class="col-lg-8 px-md-4 mx-auto">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

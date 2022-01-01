@@ -1,0 +1,30 @@
+.roundedcorner {
+  border-radius: 20px;
+  background-color: white;
+  box-shadow: 0 1px 10px rgb(0, 0, 0);
+}
+
+.roundedcorner::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.statusOffline {
+  margin-bottom: 0px;
+}
+
+.test {
+  display: flex;
+  align-items: flex-start;
+}
+
+@media screen and (max-width: 970px) {
+  .lead {
+    padding-top: 20px;
+  }
+}
+
+@media screen and (max-width: 1185px) {
+  .customPad {
+    padding-top: 15px;
+  }
+}

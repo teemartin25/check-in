@@ -1,0 +1,11 @@
+.roundedcorner {
+  border-radius: 20px;
+  background-color: white;
+  box-shadow: 0 1px 10px rgb(0, 0, 0);
+}
+
+@media screen and (max-width: 768px) {
+  .roundedcorner {
+    box-shadow: none;
+  }
+}

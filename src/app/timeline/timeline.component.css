@@ -1,0 +1,16 @@
+.mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+
+.fw-bolder {
+  font-weight: 900;
+  text-decoration: underline;
+}
+
+@media screen and (min-width: 480px) {
+  .roundedcorner {
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 0 1px 10px rgb(0, 0, 0);
+  }
+}

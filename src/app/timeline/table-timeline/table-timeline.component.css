@@ -1,0 +1,37 @@
+table {
+  width: 100%;
+}
+
+.mat-column-activity {
+  max-width: 200px;
+}
+
+.mat-column-date {
+  max-width: 120px;
+}
+
+.mat-column-whoChangedIt {
+  max-width: 100px;
+}
+
+.mat-column-whatWasChanged {
+  max-width: 100px;
+}
+
+.mat-column-keyUpdated {
+  max-width: 120px;
+}
+
+.mat-column-oldData {
+  max-width: 120px;
+}
+
+.mat-column-newData {
+  max-width: 120px;
+}
+
+.roundedcorner {
+  border-radius: 20px;
+  background-color: white;
+  box-shadow: 0 1px 10px rgb(0, 0, 0);
+}

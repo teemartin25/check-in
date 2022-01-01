@@ -1,0 +1,250 @@
+<div class="mt-3 ms-3 lead" *ngIf="!allowEdit">
+  Sorry, you're not allowed to edit this profile.
+</div>
+<button
+  *ngIf="!allowEdit"
+  class="btn btn-secondary m-3"
+  (click)="onBackToProfile()"
+>
+  Back
+</button>
+
+<div *ngIf="allowEdit" class="justify-content-center mt-2">
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+    <div class="row roundedcorner">
+      <div class="col-lg-4 pt-4 text-center">
+        <h4 *ngIf="allowEdit">Edit Profile</h4>
+
+        <div class="row text-center">
+          <div class="mt-5">
+            <div class="col text-center editProfileButtons">
+              <button
+                type="submit"
+                class="btn btn-success"
+                [disabled]="!editForm.valid || !editForm.dirty"
+              >
+                Submit
+              </button>
+            </div>
+            <div class="col text-center editProfileButtons">
+              <button
+                type="button"
+                class="btn btn-danger"
+                [disabled]="!editForm.valid"
+                (click)="onDeleteProfile()"
+              >
+                Delete Profile
+              </button>
+            </div>
+            <div class="col text-center editProfileButtons">
+              <button
+                class="btn btn-secondary"
+                (click)="onBackToProfile()"
+                type="button"
+              >
+                Back to profile
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="small">
+          <label for="name" class="form-label"></label>
+          <div class="input-group mb-2">
+            <span class="input-group-text">
+              <i class="bi bi-person-fill"></i> &nbsp; Name:
+            </span>
+            <input
+              type="text"
+              id="name"
+              class="form-control input-lg"
+              formControlName="name"
+            />
+            <span
+              *ngIf="
+                !editForm.get('name').valid && editForm.get('name').touched
+              "
+              class="col-sm-12 small fw-light text-center"
+              >Please enter a valid name!</span
+            >
+          </div>
+
+          <label for="userName" class="form-label"></label>
+          <div class="input-group mb-2">
+            <span class="input-group-text">
+              <i class="bi bi-person-badge"></i> &nbsp; Username:
+            </span>
+            <input
+              type="text"
+              id="userName"
+              class="form-control"
+              formControlName="userName"
+              readonly
+            />
+            <span
+              *ngIf="
+                !editForm.get('userName').valid &&
+                editForm.get('userName').touched
+              "
+              class="col-sm-12 small fw-light text-center"
+              >Please enter a valid username</span
+            >
+          </div>
+
+          <label for="emailAddress" class="form-label"></label>
+          <div class="input-group mb-2">
+            <span class="input-group-text">
+              <i class="bi bi-envelope-fill"></i> &nbsp; Email:
+            </span>
+            <input
+              type="email"
+              id="emailAddress"
+              class="form-control"
+              formControlName="emailAddress"
+              readonly
+            />
+            <span
+              *ngIf="
+                !editForm.get('emailAddress').valid &&
+                editForm.get('emailAddress').touched
+              "
+              class="col-sm-12 small fw-light text-center"
+              >Please enter a valid email</span
+            >
+          </div>
+
+          <label for="hobbies" class="form-label"></label>
+          <div class="input-group mb-2">
+            <span class="input-group-text">
+              <i class="bi bi-emoji-smile"></i> &nbsp; Hobbies
+            </span>
+            <input
+              type="text"
+              id="hobbies"
+              class="form-control"
+              formControlName="hobbies"
+            />
+            <span
+              *ngIf="
+                !editForm.get('hobbies').valid &&
+                editForm.get('hobbies').touched
+              "
+              class="col-sm-12 small fw-light text-center"
+              >Please enter a valid hobby</span
+            >
+          </div>
+          <label for="phoneNumber" class="form-label"></label>
+          <div class="input-group mb-2">
+            <span class="input-group-text">
+              <i class="bi bi-telephone-fill"></i> &nbsp; Phone No.:
+            </span>
+            <input
+              type="number"
+              id="phoneNumber"
+              class="form-control"
+              formControlName="phoneNumber"
+            />
+            <span
+              *ngIf="
+                !editForm.get('phoneNumber').valid &&
+                editForm.get('phoneNumber').touched
+              "
+              class="col-sm-12 small fw-light text-center"
+              >Please enter a valid phone number</span
+            >
+          </div>
+          <label for="imagePath" class="form-label"></label>
+          <div class="input-group mb-2">
+            <span class="input-group-text">
+              <i class="bi bi-camera"></i> &nbsp; Image path:
+            </span>
+            <input
+              type="text"
+              id="imagePath"
+              class="form-control"
+              formControlName="imagePath"
+            />
+            <span
+              *ngIf="
+                !editForm.get('imagePath').valid &&
+                editForm.get('imagePath').touched
+              "
+              class="col-sm-12 small fw-light text-center"
+              >Please enter a valid image path</span
+            >
+          </div>
+          <label for="gender" class="form-label"></label>
+          <div class="mb-4 input-group">
+            <span class="input-group-text">
+              <i
+                *ngIf="editForm.get('gender').value === 'male'"
+                class="bi bi-gender-male text-secondary"
+              ></i>
+
+              <i
+                *ngIf="editForm.get('gender').value === 'female'"
+                class="bi bi-gender-female text-secondary"
+              ></i>
+              &nbsp; Gender:
+            </span>
+            <select class="form-select" id="gender" formControlName="gender">
+              <option value="male" selected>Male</option>
+              <option value="female">Female</option>
+            </select>
+            <span
+              *ngIf="
+                !editForm.get('gender').valid && editForm.get('gender').touched
+              "
+              class="col-sm-12 small fw-light text-center"
+              >Please enter a valid gender!</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- Delete profile MODAL -->
+  <div class="modal fade" tabindex="-1" id="delete-modal">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          Do you want to delete your profile?
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-bs-dismiss="modal"
+            (click)="onModalDelete()"
+          >
+            Delete
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-lg">
+    <div>
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#delete-modal"
+        style="display: none"
+        id="deleteModalButton"
+      >
+        DELETE MODAL TRIGGER
+      </button>
+    </div>
+  </div>
+</div>

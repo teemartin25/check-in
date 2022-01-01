@@ -1,0 +1,63 @@
+.example-form-field {
+  margin: 0 8px 16px 0;
+}
+
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
+  background-size: cover;
+}
+
+li {
+  padding-left: 40px;
+}
+
+@media screen and (max-width: 768px) {
+  .input {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 860px) {
+  .nav-link {
+    width: max-content;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .input {
+    display: none;
+  }
+
+  li {
+    padding-left: 30px;
+  }
+}
+
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 40px; /* Footer height */
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  min-height: 72px; /* Footer height */
+}
+
+footer svg {
+  margin: 0px 10px;
+  transition: transform 0.2s;
+}
+
+footer svg:hover {
+  transform: scale(2.5);
+}

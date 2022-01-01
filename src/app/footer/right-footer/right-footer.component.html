@@ -1,0 +1,102 @@
+<div *ngIf="selectedUser" class="lead mb-1">Update your status:</div>
+<div *ngIf="selectedUser" class="container-lg roundedcorner pt-4">
+  <form
+    [formGroup]="statusForm"
+    #ngForm="ngForm"
+    (ngSubmit)="onSubmit()"
+    class="col-sm-12 my-2"
+  >
+    <div class="input-group mb-2 align-self-center">
+      <span *ngIf="statusButton === ''" class="input-group-text"
+        ><span style="visibility: hidden">🟢</span></span
+      >
+      <span *ngIf="statusButton === 'online'" class="input-group-text">🟢</span>
+      <span *ngIf="statusButton === 'offline'" class="input-group-text"
+        >🔘</span
+      >
+      <span *ngIf="statusButton === 'busy'" class="input-group-text">🔴</span>
+      <input
+        *ngIf="statusButton !== 'offline'"
+        type="text"
+        class="form-control"
+        aria-label="Text input with dropdown button"
+        formControlName="statusMessage"
+        #txtInput
+        (keydown.enter)="txtInput.blur()"
+      />
+      <input
+        *ngIf="statusButton === 'offline'"
+        type="text"
+        class="form-control"
+        aria-label="Text input with dropdown button"
+        placeholder="You're now invisible"
+        disabled
+      />
+
+      <button
+        class="btn btn-outline-secondary dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      ></button>
+      <ul class="dropdown-menu">
+        <li>
+          <a
+            class="dropdown-item"
+            (click)="updateDropdownStatus('online')"
+            value="online"
+            >Online</a
+          >
+        </li>
+        <li>
+          <a class="dropdown-item" (click)="updateDropdownStatus('busy')"
+            >Busy</a
+          >
+        </li>
+
+        <li><hr class="dropdown-divider" /></li>
+        <li>
+          <a
+            class="dropdown-item"
+            (click)="updateDropdownStatus('offline')"
+            (click)="onOfflineClick()"
+            >Offline</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="d-flex justify-content-center">
+      <button
+        *ngIf="statusForm.get('statusMessage').valid"
+        class="btn btn-outline-success"
+        type="submit"
+        [disabled]="!statusForm.valid || statusButton === ''"
+      >
+        Post Status
+      </button>
+    </div>
+    <span
+      *ngIf="
+        !statusForm.get('statusMessage').valid &&
+        statusForm.get('statusMessage').touched &&
+        statusButton !== 'offline' &&
+        !statusForm.value
+      "
+      class="help-block small text-danger"
+      >Please enter a message</span
+    ><br />
+    <span
+      *ngIf="statusButton === '' && statusForm.get('statusMessage').touched"
+      class="help-block small text-danger"
+      >Please choose a status from the dropdown</span
+    >
+    <br />
+    <span
+      *ngIf="statusForm.get('statusMessage').valid"
+      class="help-block small text-success"
+      >Click Post Status to share status.</span
+    >
+  </form>
+</div>
+
+<!-- <button (click)="triggerToast()">trigger toast</button> -->
